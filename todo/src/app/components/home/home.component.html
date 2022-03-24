@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="main-todo-input-wrap">
+        <div class="main-todo-input fl-wrap">
+          <div class="main-todo-input-item">
+            <input type="text" id="todo-list-item" placeholder="What will you do today?" [formControl]="todoInput"
+              (keydown.enter)="add(txt.value)" #txt>
+          </div>
+          <button class="add-items main-search-button" (click)="add(txt.value)">ADD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="main-todo-input-wrap">
+        <div class="main-todo-input fl-wrap todo-listing">
+          <ul id="list-items">
+            <li *ngFor="let item of data; index as i">
+              <div class="row">
+                <div class="col-md-9" [ngStyle]="{'overflow-wrap': 'break-word'}">
+                  <p *ngIf="!item.changed" [ngClass]="{isDone: item.isDone}">{{item.title}}</p>
+
+                  <input *ngIf="item.changed" type="text" #changeTxt class="form-control jaba" [value]="item.title"
+                    (keydown.enter)="changeTask(changeTxt.value, i)">
+                </div>
+                <div class="col-md-3">
+                  <i class="far fa-times-circle text-danger mx-1" [ngStyle]="{'cursor': 'pointer'}" (click)="del(i)"
+                    *ngIf="!item.changed"></i>
+                  <i class="fas fa-check text-success  mx-1" [ngStyle]="{'cursor': 'pointer'}" (click)="done(i)"
+                    *ngIf="!item.isDone && !item.changed"></i>
+                  <i *ngIf="!item.isDone" class="fas fa-edit text-primary mx-1" [ngStyle]="{'cursor': 'pointer'}"
+                    (click)="editBtn(i)"></i>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
